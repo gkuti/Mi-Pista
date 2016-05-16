@@ -108,8 +108,8 @@ public class MainActivity extends AppCompatActivity
         }
         UserActivity userActivity = new UserActivity(this);
         userActivity.connect();
-        Movement movement = new Movement(this);
-        movement.update();
+        Tracker tracker = new Tracker(this);
+        tracker.start();
         isTracking = true;
     }
 
