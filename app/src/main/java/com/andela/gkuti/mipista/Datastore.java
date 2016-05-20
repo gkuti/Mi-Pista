@@ -2,6 +2,7 @@ package com.andela.gkuti.mipista;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -29,5 +30,19 @@ public class Datastore extends SQLiteOpenHelper{
         cv.put("Date", date);
         SQ.insert("Test", null, cv);
         SQ.close();
+    }
+    public Cursor getHistoryByDate(String date) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String[] columns = {"Location"};
+        String[] selectionArgs = new String[] {date};
+        Cursor cursor = sqLiteDatabase.query("Test",columns,"Date =?",selectionArgs,null,null,null);
+        return cursor;
+    }
+    public Cursor getHistoryByLocation(String location) {
+        SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
+        String[] columns = {"StartTime", "EndTime"};
+        String[] selectionArgs = new String[] {location};
+        Cursor cursor = sqLiteDatabase.query("Test",columns,"Location =?",selectionArgs,null,null,null);
+        return cursor;
     }
 }
