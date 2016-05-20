@@ -8,8 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class Datastore extends SQLiteOpenHelper{
 
-    public Datastore(Context context, String name, int version) {
-        super(context, name, null, version);
+    public Datastore(Context context) {
+        super(context, "Mydb", null, 1);
     }
 
     @Override
