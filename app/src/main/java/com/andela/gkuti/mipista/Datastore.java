@@ -21,9 +21,9 @@ public class Datastore extends SQLiteOpenHelper{
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-    public void putInformation(Datastore datastore, String location, String startTime,String endTime, String date){
-        SQLiteDatabase SQ = datastore.getWritableDatabase();
-        ContentValues cv= new ContentValues();
+    public void saveData(String location, String startTime, String endTime, String date) {
+        SQLiteDatabase SQ = this.getWritableDatabase();
+        ContentValues cv = new ContentValues();
         cv.put("Location", location);
         cv.put("StartTime", startTime);
         cv.put("EndTime", endTime);
