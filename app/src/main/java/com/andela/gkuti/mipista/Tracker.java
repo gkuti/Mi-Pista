@@ -7,6 +7,8 @@ import android.content.IntentFilter;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.util.concurrent.TimeUnit;
+
 public class Tracker {
     private BroadcastReceiver updateListReceiver;
     private Thread thread;
@@ -18,8 +20,12 @@ public class Tracker {
     private String startTime;
     private String endTime;
     private String date;
+    private int duration;
     private LocationDetector locationDetector;
     private UserData userData;
+    private long stime;
+    private long etime;
+    public static final String ACTION = "com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA";
 
     public Tracker(Context context) {
         this.context = context;
@@ -39,7 +45,7 @@ public class Tracker {
             }
         };
         IntentFilter filter = new IntentFilter();
-        filter.addAction("Mi Pista");
+        filter.addAction(ACTION);
         context.registerReceiver(updateListReceiver, filter);
     }
 
@@ -59,7 +65,7 @@ public class Tracker {
                 initializeTracking();
                 while (activity.equals("STI")) {
                     try {
-                        Thread.sleep(999);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
                     seconds++;
@@ -72,14 +78,14 @@ public class Tracker {
     private void save(int seconds) {
         if (checkTime(seconds)) {
             String location = locationDetector.getLocation();
-            datastore.saveData(location, startTime, endTime, date);
+            datastore.saveData(location, startTime, endTime, date, duration);
             Log.d("save", "saved");
         }
     }
 
     private boolean checkTime(int seconds) {
-        int delay = userData.getData("delay") * 60;
-        return seconds >= delay;
+        duration = (int) TimeUnit.MILLISECONDS.toSeconds(etime - stime);
+        return seconds >= 5;
     }
 
     private void initializeTracking() {
@@ -87,9 +93,11 @@ public class Tracker {
         seconds = 0;
         isRunning = true;
         startTime = Date.getTime();
+        stime = System.currentTimeMillis();
     }
 
     private void endTracking() {
+        etime = System.currentTimeMillis();
         endTime = Date.getTime();
         save(seconds);
         isRunning = false;
