@@ -14,20 +14,21 @@ public class Datastore extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        sqLiteDatabase.execSQL("CREATE TABLE Test(_id INTEGER PRIMARY KEY AUTOINCREMENT, Location VARCHAR, StartTime VARCHAR, EndTime VARCHAR, Date VARCHAR);");
+        sqLiteDatabase.execSQL("CREATE TABLE Test(_id INTEGER PRIMARY KEY AUTOINCREMENT, Location VARCHAR, StartTime VARCHAR, EndTime VARCHAR, Date VARCHAR, Duration INTEGER);");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
 
     }
-    public void saveData(String location, String startTime, String endTime, String date) {
+    public void saveData(String location, String startTime, String endTime, String date, int duration) {
         SQLiteDatabase SQ = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put("Location", location);
         cv.put("StartTime", startTime);
         cv.put("EndTime", endTime);
         cv.put("Date", date);
+        cv.put("Duration", duration);
         SQ.insert("Test", null, cv);
         SQ.close();
     }
@@ -40,7 +41,7 @@ public class Datastore extends SQLiteOpenHelper{
     }
     public Cursor getHistoryByLocation(String location) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
-        String[] columns = {"StartTime", "EndTime"};
+        String[] columns = {"StartTime", "EndTime", "Duration"};
         String[] selectionArgs = new String[] {location};
         Cursor cursor = sqLiteDatabase.query("Test",columns,"Location =?",selectionArgs,null,null,null);
         return cursor;
