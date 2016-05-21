@@ -9,11 +9,11 @@ import com.google.android.gms.location.DetectedActivity;
 import java.util.List;
 
 public class ActivityRecognitionService extends IntentService {
-
-    private String TAG = this.getClass().getSimpleName();
+    int confidence = 0;
+    String ac = "", co = "";
 
     public ActivityRecognitionService() {
-        super("My Activity Recognition Service");
+        super("Recognition Service");
     }
 
     @Override
@@ -25,28 +25,25 @@ public class ActivityRecognitionService extends IntentService {
     }
 
     private void handleDetectedActivities(List<DetectedActivity> probableActivities) {
-        int confidence = 0;
-        String ac = "", co = "";
         for (DetectedActivity activity : probableActivities) {
-            int type = activity.getType();
-            if (type == DetectedActivity.UNKNOWN || type == DetectedActivity.STILL || type == DetectedActivity.TILTING) {
-                if (confidence < activity.getConfidence()) {
-                    ac = "STI";
-                    confidence = activity.getConfidence();
-                    co = String.valueOf(activity.getConfidence());
-                }
-            } else {
-                if (confidence < activity.getConfidence()) {
-                    ac = "MOV";
-                    confidence = activity.getConfidence();
-                    co = String.valueOf(activity.getConfidence());
-                }
-            }
+            getStatus(activity.getType(), activity);
         }
 
-        Intent i = new Intent("example");
+        Intent i = new Intent("Mi Pista");
         i.putExtra("Activity", ac);
         i.putExtra("Confidence", co);
         sendBroadcast(i);
+    }
+
+    private void getStatus(int type, DetectedActivity activity) {
+        if ((type == DetectedActivity.UNKNOWN || type == DetectedActivity.STILL || type == DetectedActivity.TILTING) && (confidence < activity.getConfidence())) {
+            ac = "STI";
+            confidence = activity.getConfidence();
+            co = String.valueOf(activity.getConfidence());
+        } else if (confidence < activity.getConfidence()) {
+            ac = "MOV";
+            confidence = activity.getConfidence();
+            co = String.valueOf(activity.getConfidence());
+        }
     }
 }
