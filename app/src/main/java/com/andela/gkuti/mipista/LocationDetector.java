@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -21,7 +20,7 @@ import com.google.android.gms.location.LocationServices;
 import java.io.IOException;
 import java.util.List;
 
-public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,LocationListener {
+public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleApiClient googleApiClient;
     private Context context;
     private String country = " ";
@@ -51,14 +50,10 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     }
 
     @Override
-    public void onConnectionSuspended(int i) {
-
-    }
+    public void onConnectionSuspended(int i) {}
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
 
     public void connect() {
         googleApiClient.connect();
@@ -77,17 +72,12 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     }
 
     private void detectCountry() {
-        Log.d("ne", String.valueOf(longitude) + " " + String.valueOf(latitude));
         Geocoder geocoder = new Geocoder(context);
         List<Address> addresses = null;
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
-            if (addresses != null && addresses.size() > 0) {
-                Address address = addresses.get(0);
-                country = address.getCountryName();
-                state = address.getAdminArea();
-                locality = address.getSubLocality();
-                street = address.getFeatureName();
+            if (addresses != null) {
+                decodeAddress(addresses);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -103,7 +93,16 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         }
         return "unknown";
     }
-    public boolean getAddress(){
+
+    private boolean getAddress() {
         return (!country.equals(" ") || !state.equals(" ") || !locality.equals(" ") || !street.equals(" "));
+    }
+
+    private void decodeAddress(List<Address> addresses) {
+        Address address = addresses.get(0);
+        country = address.getCountryName();
+        state = address.getAdminArea();
+        locality = address.getSubLocality();
+        street = address.getFeatureName();
     }
 }
