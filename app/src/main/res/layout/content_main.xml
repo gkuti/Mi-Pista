@@ -6,10 +6,7 @@
     android:fitsSystemWindows="true"
     tools:context="com.andela.gkuti.mipista.MainActivity"
     tools:showIn="@layout/activity_main">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/result" />
+
     <ImageView
         android:layout_width="200dp"
         android:layout_height="200dp"
