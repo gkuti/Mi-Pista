@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 public class HistoryActivity extends AppCompatActivity {
     ArrayList<History> historyList = new ArrayList();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,15 +19,16 @@ public class HistoryActivity extends AppCompatActivity {
         Datastore datastore = new Datastore(this);
         Cursor cursor = datastore.getHistoryByLocation(location);
         cursor.moveToFirst();
-        while (!cursor.isAfterLast()){
+        while (!cursor.isAfterLast()) {
             String startTime = cursor.getString(cursor.getColumnIndex("StartTime"));
             String endTime = cursor.getString(cursor.getColumnIndex("EndTime"));
-            History history = new History(startTime,endTime);
+            String duration = String.valueOf(cursor.getInt(cursor.getColumnIndex("Duration")));
+            History history = new History(startTime, endTime, duration);
             historyList.add(history);
             cursor.moveToNext();
         }
         RecyclerView historyView = (RecyclerView) findViewById(R.id.history_list);
-        HistoryAdapter historyAdapter = new HistoryAdapter(historyList,this);
+        HistoryAdapter historyAdapter = new HistoryAdapter(historyList, this);
         historyView.setLayoutManager(new LinearLayoutManager(this));
         historyView.setAdapter(historyAdapter);
     }
