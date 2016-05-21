@@ -18,20 +18,22 @@ public class Tracker {
     private String startTime;
     private String endTime;
     private String date;
+    private LocationDetector locationDetector;
 
     public Tracker(Context context) {
         this.context = context;
-        datastore = new Datastore(context, "Mydb", 1);
+        datastore = new Datastore(context);
+        locationDetector = new LocationDetector(context);
     }
 
-    public void start() {
+    public void update() {
         updateListReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 activity = intent.getStringExtra("Activity");
                 Toast.makeText(context, intent.getStringExtra("Activity") + " " + "Confidence : " + intent.getExtras().getString("Confidence"),
                         Toast.LENGTH_LONG).show();
-                startTimer();
+                start();
             }
         };
         IntentFilter filter = new IntentFilter();
@@ -39,11 +41,9 @@ public class Tracker {
         context.registerReceiver(updateListReceiver, filter);
     }
 
-    private void startTimer() {
+    private void start() {
         if (!isRunning) {
             initthread();
-            LocationDetector locationDetector = new LocationDetector(context);
-            locationDetector.connect();
             date = Date.getDate();
             thread.start();
         }
@@ -54,6 +54,7 @@ public class Tracker {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                locationDetector.connect();
                 seconds = 0;
                 isRunning = true;
                 startTime = Date.getTime();
@@ -73,7 +74,8 @@ public class Tracker {
 
     private void save(int seconds) {
         if (checkTime(seconds)) {
-            datastore.putInformation(datastore, "unknown", startTime, endTime, date);
+            String location = locationDetector.getLocation();
+            datastore.saveData(location, startTime, endTime, date);
             Log.d("save", "saved");
         }
     }
