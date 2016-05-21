@@ -16,6 +16,6 @@ public class UserData {
         editor.commit();
     }
     public int getData(String key) {
-        return sharedPreferences.getInt(key, 0);
+        return sharedPreferences.getInt(key, 5);
     }
 }
