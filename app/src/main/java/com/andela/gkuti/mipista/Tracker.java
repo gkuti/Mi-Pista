@@ -19,11 +19,13 @@ public class Tracker {
     private String endTime;
     private String date;
     private LocationDetector locationDetector;
+    private UserData userData;
 
     public Tracker(Context context) {
         this.context = context;
         datastore = new Datastore(context);
         locationDetector = new LocationDetector(context);
+        userData = new UserData(context);
     }
 
     public void update() {
@@ -37,7 +39,7 @@ public class Tracker {
             }
         };
         IntentFilter filter = new IntentFilter();
-        filter.addAction("example");
+        filter.addAction("Mi Pista");
         context.registerReceiver(updateListReceiver, filter);
     }
 
@@ -54,10 +56,7 @@ public class Tracker {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                locationDetector.connect();
-                seconds = 0;
-                isRunning = true;
-                startTime = Date.getTime();
+                initializeTracking();
                 while (activity.equals("STI")) {
                     try {
                         Thread.sleep(999);
@@ -65,9 +64,7 @@ public class Tracker {
                     }
                     seconds++;
                 }
-                endTime = Date.getTime();
-                save(seconds);
-                isRunning = false;
+                endTracking();
             }
         });
     }
@@ -81,6 +78,20 @@ public class Tracker {
     }
 
     private boolean checkTime(int seconds) {
-        return seconds >= 10;
+        int delay = userData.getData("delay") * 60;
+        return seconds >= delay;
+    }
+
+    private void initializeTracking() {
+        locationDetector.connect();
+        seconds = 0;
+        isRunning = true;
+        startTime = Date.getTime();
+    }
+
+    private void endTracking() {
+        endTime = Date.getTime();
+        save(seconds);
+        isRunning = false;
     }
 }
