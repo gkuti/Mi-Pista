@@ -30,6 +30,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
         History history = historyList.get(position);
         holder.startTime.setText(history.getStartTime());
         holder.endTime.setText(history.getEndTime());
+        holder.duration.setText(history.getDuration());
     }
 
     @Override
@@ -40,11 +41,13 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView startTime;
         private TextView endTime;
+        private TextView duration;
 
         public ViewHolder(View itemView) {
             super(itemView);
             startTime = (TextView) itemView.findViewById(R.id.time_from);
             endTime = (TextView) itemView.findViewById(R.id.time_to);
+            duration = (TextView) itemView.findViewById(R.id.duration);
         }
     }
 }
