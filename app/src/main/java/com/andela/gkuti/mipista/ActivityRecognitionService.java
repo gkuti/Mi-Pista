@@ -11,7 +11,6 @@ import java.util.List;
 public class ActivityRecognitionService extends IntentService {
     int confidence = 0;
     String ac = "", co = "";
-
     public ActivityRecognitionService() {
         super("Recognition Service");
     }
@@ -28,8 +27,7 @@ public class ActivityRecognitionService extends IntentService {
         for (DetectedActivity activity : probableActivities) {
             getStatus(activity.getType(), activity);
         }
-
-        Intent i = new Intent("Mi Pista");
+        Intent i = new Intent(Constants.ACTION.getValue());
         i.putExtra("Activity", ac);
         i.putExtra("Confidence", co);
         sendBroadcast(i);

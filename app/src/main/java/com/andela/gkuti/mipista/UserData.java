@@ -8,7 +8,7 @@ public class UserData {
     private SharedPreferences.Editor editor;
 
     public UserData(Context context) {
-        sharedPreferences = context.getSharedPreferences("track", 0);
+        sharedPreferences = context.getSharedPreferences(Constants.DATA_FILENAME.getValue(), 0);
         editor = sharedPreferences.edit();
     }
     public void saveData(String key, int value) {
