@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import java.util.concurrent.TimeUnit;
 
-public class Tracker {
+public class Tracker extends BroadcastReceiver {
     private BroadcastReceiver updateListReceiver;
     private Thread thread;
     private String activity;
@@ -25,6 +25,8 @@ public class Tracker {
     private UserData userData;
     private long stime;
     private long etime;
+    private boolean runThread = true;
+    private IntentFilter filter;
 
     public Tracker(Context context) {
         this.context = context;
@@ -32,26 +34,18 @@ public class Tracker {
         locationDetector = new LocationDetector(context);
         userData = new UserData(context);
         activity = "STI";
+        updateListReceiver = this;
+        filter = new IntentFilter();
+        filter.addAction(Constants.ACTION.getValue());
     }
 
     public void startTracker() {
         start();
-        updateListReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                activity = intent.getStringExtra("Activity");
-                Toast.makeText(context, intent.getStringExtra("Activity") + " " + "Confidence : " + intent.getExtras().getString("Confidence"),
-                        Toast.LENGTH_LONG).show();
-                start();
-            }
-        };
-        IntentFilter filter = new IntentFilter();
-        filter.addAction(Constants.ACTION.getValue());
         context.registerReceiver(updateListReceiver, filter);
     }
 
     private void start() {
-        if (!isRunning) {
+        if (!isRunning && runThread) {
             initthread();
             date = Date.getDate();
             thread.start();
@@ -105,7 +99,18 @@ public class Tracker {
     }
 
     public void stopTracker() {
-        context.unregisterReceiver(updateListReceiver);
-        isRunning = false;
+        try {
+            isRunning = false;
+            runThread = false;
+            context.unregisterReceiver(updateListReceiver);
+        } catch (Exception e) {
+
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        runThread = true;
+        start();
     }
 }
