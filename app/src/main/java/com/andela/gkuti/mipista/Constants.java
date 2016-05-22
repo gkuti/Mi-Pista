@@ -1,7 +1,7 @@
 package com.andela.gkuti.mipista;
 
 public enum Constants {
-    ACTION ("com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA"),
+    ACTION("com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA"),
     DATABASE_NAME("MiPista"),
     TABLE_NAME("Tracker"),
     LOCATION_COLUMN("Location"),
