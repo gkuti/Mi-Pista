@@ -25,16 +25,17 @@ public class Tracker {
     private UserData userData;
     private long stime;
     private long etime;
-    public static final String ACTION = "com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA";
 
     public Tracker(Context context) {
         this.context = context;
         datastore = new Datastore(context);
         locationDetector = new LocationDetector(context);
         userData = new UserData(context);
+        activity = "STI";
     }
 
-    public void update() {
+    public void startTracker() {
+        start();
         updateListReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -45,7 +46,7 @@ public class Tracker {
             }
         };
         IntentFilter filter = new IntentFilter();
-        filter.addAction(ACTION);
+        filter.addAction(Constants.ACTION.getValue());
         context.registerReceiver(updateListReceiver, filter);
     }
 
@@ -63,7 +64,7 @@ public class Tracker {
             @Override
             public void run() {
                 initializeTracking();
-                while (activity.equals("STI")) {
+                while (activity.equals("STI") && isRunning) {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
@@ -99,7 +100,12 @@ public class Tracker {
     private void endTracking() {
         etime = System.currentTimeMillis();
         endTime = Date.getTime();
+        locationDetector.disconnect();
         save(seconds);
+    }
+
+    public void stopTracker() {
+        context.unregisterReceiver(updateListReceiver);
         isRunning = false;
     }
 }
