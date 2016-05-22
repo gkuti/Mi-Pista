@@ -10,6 +10,7 @@ public class Date {
         SimpleDateFormat sd = new SimpleDateFormat("dd/M/yyyy");
         return sd.format(calendar.getTime());
     }
+
     public static String getTime() {
         java.util.Date date = new java.util.Date();
         SimpleDateFormat sd = new SimpleDateFormat("HH:mm:ss");
