@@ -50,10 +50,12 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     }
 
     @Override
-    public void onConnectionSuspended(int i) {}
+    public void onConnectionSuspended(int i) {
+    }
 
     @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {}
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
 
     public void connect() {
         googleApiClient.connect();
@@ -73,7 +75,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
 
     private void detectCountry() {
         Geocoder geocoder = new Geocoder(context);
-        List<Address> addresses = null;
+        List<Address> addresses;
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses != null) {

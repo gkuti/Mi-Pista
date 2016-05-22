@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.andela.gkuti.mipista.MainActivity">
+    tools:context=".MainActivity">
     <include layout="@layout/content_main" />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/tracking_button"
@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/ic_my_location_white_24dp" />
+        android:src="@drawable/ic_my_location_white_24dp"
+        android:clickable="false" />
 
 </android.support.design.widget.CoordinatorLayout>

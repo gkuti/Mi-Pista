@@ -41,15 +41,13 @@ public class Datastore extends SQLiteOpenHelper {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {Constants.LOCATION_COLUMN.getValue(), Constants.DURATION_COLUMN.getValue()};
         String[] selectionArgs = new String[]{date};
-        Cursor cursor = sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Date =?", selectionArgs, null, null, null);
-        return cursor;
+        return sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Date =?", selectionArgs, null, null, null);
     }
 
     public Cursor getHistoryByLocation(String location) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {Constants.START_TIME_COLUMN.getValue(), Constants.END_TIME_COLUMN.getValue(), Constants.DURATION_COLUMN.getValue()};
         String[] selectionArgs = new String[]{location};
-        Cursor cursor = sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Location =?", selectionArgs, null, null, null);
-        return cursor;
+        return sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Location =?", selectionArgs, null, null, null);
     }
 }
