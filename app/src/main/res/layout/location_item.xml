@@ -29,7 +29,6 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Moleye street yaba,Lagos Nigeria"
             android:id="@+id/location"
-            android:textStyle="bold"
             android:textColor="@color/Ash"
             android:layout_weight="1" />
 
@@ -37,11 +36,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:text="5 hits"
+            android:text="30 mins"
             android:id="@+id/hits"
-            android:layout_alignBottom="@+id/location"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical" />
 
