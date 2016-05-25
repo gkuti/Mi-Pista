@@ -3,6 +3,10 @@ package com.andela.gkuti.mipista;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,13 +28,18 @@ import com.daimajia.androidanimations.library.YoYo;
 public class MainFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
     private Tracker tracker;
-    private TextView textView;
+    private TextView status;
     private Handler handler;
     private Thread thread;
     private boolean isTracking;
     private FloatingActionButton fab;
     private View view;
     private UserActivity userActivity;
+    private String location = "";
+    private TextView userLocation;
+    private LocationDetector locationDetector;
+    private BroadcastReceiver locationUpdate;
+    private Requirement requirement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,7 +51,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         super.onViewCreated(view, savedInstanceState);
         activity = getActivity();
         this.view = view;
+        checkPermission();
         initializeComponent();
+        registerLocationUpdates();
     }
 
     @Override
@@ -57,12 +68,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeComponent() {
+        requirement = new Requirement(activity);
         tracker = new Tracker(activity);
-        textView = (TextView) view.findViewById(R.id.status);
+        userActivity = new UserActivity(activity);
+        locationDetector = new LocationDetector(activity);
+        status = (TextView) view.findViewById(R.id.status);
+        userLocation = (TextView) view.findViewById(R.id.user_location);
         handler = new Handler();
         fab = (FloatingActionButton) view.findViewById(R.id.tracking_button);
         fab.setOnClickListener(this);
-        userActivity = new UserActivity(activity);
+        requirement.check();
+        locationDetector.connect();
     }
 
     public void initthread() {
@@ -101,22 +117,51 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     public void startTracking() {
-        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        }
         tracker.startTracker();
         userActivity.connect();
         isTracking = true;
         initthread();
         thread.start();
-        textView.setText("TRACKING");
+        status.setText("TRACKING");
     }
 
     public void stopTracking() {
         tracker.stopTracker();
         userActivity.disconnect();
         isTracking = false;
-        textView.setText("NOT TRACKING");
+        status.setText("NOT TRACKING");
+    }
+
+    public void setLocation() {
+        userLocation.setText(location);
+        YoYo.with(Techniques.BounceIn).duration(2000).playOn(view.findViewById(R.id.user_location));
+    }
+
+    public void registerLocationUpdates() {
+        locationUpdate = new BroadcastReceiver() {
+            @Override
+            public void onReceive(Context context, Intent intent) {
+                location = intent.getStringExtra("Location");
+                setLocation();
+                Toast.makeText(context, location, Toast.LENGTH_SHORT).show();
+            }
+        };
+        IntentFilter filter = new IntentFilter();
+        filter.addAction("location");
+        getActivity().registerReceiver(locationUpdate, filter);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        locationDetector.disconnect();
+        getContext().unregisterReceiver(locationUpdate);
+    }
+
+    public void checkPermission() {
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        }
     }
 }
