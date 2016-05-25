@@ -2,6 +2,7 @@ package com.andela.gkuti.mipista;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -23,19 +25,18 @@ import java.util.List;
 public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleApiClient googleApiClient;
     private Context context;
-    private String country = " ";
-    private String state = " ";
-    private String locality = " ";
-    private String street = " ";
+    private String country;
+    private String state;
+    private String locality;
+    private String street;
     private double longitude;
     private double latitude;
+    private Intent intent;
+    private String newLocation = "";
 
     public LocationDetector(Context context) {
         this.context = context;
-        googleApiClient = new GoogleApiClient.Builder(context).addApi(LocationServices.API)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .build();
+        intent = new Intent("location");
     }
 
     @Override
@@ -44,7 +45,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
                 == PackageManager.PERMISSION_GRANTED) {
             LocationRequest locationRequest = LocationRequest.create();
             locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-            locationRequest.setInterval(1000);
+            locationRequest.setInterval(60000);
             LocationServices.FusedLocationApi.requestLocationUpdates(googleApiClient, locationRequest, this);
         }
     }
@@ -58,18 +59,31 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     }
 
     public void connect() {
+        country = " ";
+        state = " ";
+        locality = " ";
+        street = " ";
+        googleApiClient = new GoogleApiClient.Builder(context).addApi(LocationServices.API)
+                .addConnectionCallbacks(this)
+                .addOnConnectionFailedListener(this)
+                .build();
         googleApiClient.connect();
     }
 
     public void disconnect() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
-                googleApiClient, this);
+        try {
+            LocationServices.FusedLocationApi.removeLocationUpdates(
+                    googleApiClient, this);
+        } catch (Exception e) {
+        }
+
     }
 
     @Override
     public void onLocationChanged(Location location) {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
+        Log.d("log", String.valueOf(longitude) + String.valueOf(latitude));
         detectCountry();
     }
 
@@ -85,7 +99,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
             e.printStackTrace();
         }
         if (getAddress()) {
-            disconnect();
+            updateLocation();
         }
     }
 
@@ -106,5 +120,13 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         state = address.getAdminArea();
         locality = address.getSubLocality();
         street = address.getFeatureName();
+    }
+
+    private void updateLocation() {
+        if (!getLocation().equals(newLocation)) {
+            newLocation = getLocation();
+            intent.putExtra("Location", getLocation());
+            context.sendBroadcast(intent);
+        }
     }
 }
