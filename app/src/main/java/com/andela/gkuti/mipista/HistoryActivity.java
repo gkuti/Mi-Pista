@@ -26,6 +26,7 @@ public class HistoryActivity extends AppCompatActivity {
         date = userData.getCurrentDate("date");
         generateList();
         initializeView();
+        setTitle(location);
     }
 
     private void generateList() {
@@ -46,5 +47,8 @@ public class HistoryActivity extends AppCompatActivity {
         HistoryAdapter historyAdapter = new HistoryAdapter(historyList, this);
         historyView.setLayoutManager(new LinearLayoutManager(this));
         historyView.setAdapter(historyAdapter);
+    }
+    private void setTitle(String date){
+        getSupportActionBar().setTitle(date);
     }
 }
