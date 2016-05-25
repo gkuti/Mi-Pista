@@ -26,28 +26,30 @@ public class Datastore extends SQLiteOpenHelper {
     }
 
     public void saveData(String location, String startTime, String endTime, String date, int duration) {
-        SQLiteDatabase SQ = this.getWritableDatabase();
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(Constants.LOCATION_COLUMN.getValue(), location);
         cv.put(Constants.START_TIME_COLUMN.getValue(), startTime);
         cv.put(Constants.END_TIME_COLUMN.getValue(), endTime);
         cv.put(Constants.DATE_COLUMN.getValue(), date);
         cv.put(Constants.DURATION_COLUMN.getValue(), duration);
-        SQ.insert(Constants.TABLE_NAME.getValue(), null, cv);
-        SQ.close();
+        sqLiteDatabase.insert(Constants.TABLE_NAME.getValue(), null, cv);
+        sqLiteDatabase.close();
     }
 
     public Cursor getHistoryByDate(String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {Constants.LOCATION_COLUMN.getValue(), Constants.DURATION_COLUMN.getValue()};
         String[] selectionArgs = new String[]{date};
-        return sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Date =?", selectionArgs, null, null, null);
+        Cursor cursor = sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Date =?", selectionArgs, null, null, null);
+        return cursor;
     }
 
-    public Cursor getHistoryByLocation(String location) {
+    public Cursor getHistoryByLocation(String location, String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {Constants.START_TIME_COLUMN.getValue(), Constants.END_TIME_COLUMN.getValue(), Constants.DURATION_COLUMN.getValue()};
-        String[] selectionArgs = new String[]{location};
-        return sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Location =?", selectionArgs, null, null, null);
+        String[] selectionArgs = new String[]{location, date};
+        Cursor cursor = sqLiteDatabase.query(Constants.TABLE_NAME.getValue(), columns, "Location =? AND Date =?", selectionArgs, null, null, null);
+        return cursor;
     }
 }
