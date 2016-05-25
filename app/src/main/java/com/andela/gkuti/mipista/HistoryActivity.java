@@ -13,19 +13,23 @@ public class HistoryActivity extends AppCompatActivity {
     private ArrayList<History> historyList = new ArrayList();
     private Datastore datastore;
     private String location;
+    private String date;
+    private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_history);
-        location = getIntent().getExtras().getString("location");
+        userData = new UserData(this);
         datastore = new Datastore(this);
+        location = getIntent().getExtras().getString("location");
+        date = userData.getCurrentDate("date");
         generateList();
         initializeView();
     }
 
     private void generateList() {
-        Cursor cursor = datastore.getHistoryByLocation(location);
+        Cursor cursor = datastore.getHistoryByLocation(location, date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             String startTime = cursor.getString(cursor.getColumnIndex(Constants.START_TIME_COLUMN.getValue()));
