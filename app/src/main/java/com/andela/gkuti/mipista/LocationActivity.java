@@ -20,6 +20,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
     private int year;
     private LocationAdapter locationAdapter;
     private HistoryGenerator historyGenerator;
+    private UserData userData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,27 +54,26 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
                 .append(year);
         locationsList = historyGenerator.getList(stringBuilder.toString());
         locationAdapter.notifyDataSetChanged();
+        userData.saveCurrentDate("date", stringBuilder.toString());
     }
 
     private void initializeComponent() {
-        Calendar calendar = Calendar.getInstance();
-        day = calendar.get(Calendar.DAY_OF_MONTH);
-        month = calendar.get(Calendar.MONTH);
-        year = calendar.get(Calendar.YEAR);
-        StringBuilder stringBuilder = new StringBuilder();
-        stringBuilder.append(day).append("/")
-                .append(month).append("/")
-                .append(year);
+        userData = new UserData(this);
         historyGenerator = new HistoryGenerator(this);
         locationsList = historyGenerator.getList(Date.getDate());
         initializeView();
     }
 
     private void initializeView() {
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH);
+        day = calendar.get(Calendar.DAY_OF_MONTH);
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.location_list);
         locationAdapter = new LocationAdapter(locationsList, this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(locationAdapter);
         recyclerView.addItemDecoration(new Decorator(this));
+        userData.saveCurrentDate("date", Date.getDate());
     }
 }
