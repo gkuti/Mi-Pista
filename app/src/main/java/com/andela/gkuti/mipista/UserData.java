@@ -11,11 +11,22 @@ public class UserData {
         sharedPreferences = context.getSharedPreferences(Constants.DATA_FILENAME.getValue(), 0);
         editor = sharedPreferences.edit();
     }
+
     public void saveData(String key, int value) {
         editor.putInt(key, value);
         editor.commit();
     }
+
     public int getData(String key) {
         return sharedPreferences.getInt(key, 5);
+    }
+
+    public void saveCurrentDate(String key, String date) {
+        editor.putString(key, date);
+        editor.commit();
+    }
+
+    public String getCurrentDate(String key) {
+        return sharedPreferences.getString(key, "");
     }
 }
