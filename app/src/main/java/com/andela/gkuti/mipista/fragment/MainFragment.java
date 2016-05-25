@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.fragment;
 
 
 import android.Manifest;
@@ -22,6 +22,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.andela.gkuti.mipista.service.LocationDetector;
+import com.andela.gkuti.mipista.R;
+import com.andela.gkuti.mipista.tracker.Tracker;
+import com.andela.gkuti.mipista.service.UserActivity;
+import com.andela.gkuti.mipista.util.Requirement;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
@@ -39,7 +44,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private TextView userLocation;
     private LocationDetector locationDetector;
     private BroadcastReceiver locationUpdate;
-    private Requirement requirement;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -68,7 +72,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     private void initializeComponent() {
-        requirement = new Requirement(activity);
+        Requirement requirement = new Requirement(activity);
         tracker = new Tracker(activity);
         userActivity = new UserActivity(activity);
         locationDetector = new LocationDetector(activity);

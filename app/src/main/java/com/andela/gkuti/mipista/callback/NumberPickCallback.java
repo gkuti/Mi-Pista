@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.callback;
 
 
 public interface NumberPickCallback {

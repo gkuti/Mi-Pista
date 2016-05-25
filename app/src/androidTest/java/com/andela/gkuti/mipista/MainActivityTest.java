@@ -2,6 +2,9 @@ package com.andela.gkuti.mipista;
 
 import android.test.ActivityInstrumentationTestCase2;
 
+import com.andela.gkuti.mipista.activity.MainActivity;
+import com.andela.gkuti.mipista.util.Date;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;

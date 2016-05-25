@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.activity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -8,6 +8,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.DatePicker;
+
+import com.andela.gkuti.mipista.util.Date;
+import com.andela.gkuti.mipista.util.Decorator;
+import com.andela.gkuti.mipista.util.HistoryGenerator;
+import com.andela.gkuti.mipista.model.Location;
+import com.andela.gkuti.mipista.adapter.LocationAdapter;
+import com.andela.gkuti.mipista.R;
+import com.andela.gkuti.mipista.dal.UserData;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -78,7 +86,8 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         userData.saveCurrentDate("date", Date.getDate());
         setTitle(Date.getDate());
     }
-    private void setTitle(String date){
+
+    private void setTitle(String date) {
         getSupportActionBar().setTitle(date);
     }
 }

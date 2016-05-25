@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.service;
 
 import android.app.PendingIntent;
 import android.content.Context;

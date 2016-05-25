@@ -1,8 +1,11 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.util;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.text.format.DateUtils;
+
+import com.andela.gkuti.mipista.dal.Datastore;
+import com.andela.gkuti.mipista.model.Location;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,7 +22,7 @@ public class HistoryGenerator {
         datastore = new Datastore(context);
     }
 
-    public ArrayList getList(String date) {
+    public ArrayList<Location> getList(String date) {
         createData(date);
         return locationsList;
     }
@@ -27,7 +30,7 @@ public class HistoryGenerator {
     private void createData(String date) {
         locationsList.clear();
         locationList = new ArrayList<>();
-        locationDuration = new HashMap();
+        locationDuration = new HashMap<>();
         Cursor cursor = datastore.getHistoryByDate(date);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {

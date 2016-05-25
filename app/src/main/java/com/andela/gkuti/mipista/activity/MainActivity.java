@@ -1,10 +1,12 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+
+import com.andela.gkuti.mipista.R;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,7 +15,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

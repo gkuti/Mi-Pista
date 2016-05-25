@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.dialog;
 
 import android.app.Dialog;
 import android.os.Bundle;
@@ -6,6 +6,9 @@ import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
+
+import com.andela.gkuti.mipista.callback.NumberPickCallback;
+import com.andela.gkuti.mipista.R;
 
 public class NumberPickerDialog extends DialogFragment {
     private Dialog dialog;
@@ -30,7 +33,7 @@ public class NumberPickerDialog extends DialogFragment {
         cancelButton = (Button) dialog.findViewById(R.id.cancel);
         okButton = (Button) dialog.findViewById(R.id.okay);
         numberPicker = (NumberPicker) dialog.findViewById(R.id.numberPicker);
-        numberPicker.setMinValue(5);
+        numberPicker.setMinValue(1);
         numberPicker.setMaxValue(30);
         assignClickHandlers();
     }

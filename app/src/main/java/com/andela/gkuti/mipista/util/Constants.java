@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.util;
 
 public enum Constants {
     ACTION("com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA"),

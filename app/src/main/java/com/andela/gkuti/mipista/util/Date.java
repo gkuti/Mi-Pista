@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.util;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

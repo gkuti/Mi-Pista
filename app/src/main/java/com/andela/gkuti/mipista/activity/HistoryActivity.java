@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.activity;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -6,6 +6,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.format.DateUtils;
+
+import com.andela.gkuti.mipista.util.Constants;
+import com.andela.gkuti.mipista.dal.Datastore;
+import com.andela.gkuti.mipista.model.History;
+import com.andela.gkuti.mipista.adapter.HistoryAdapter;
+import com.andela.gkuti.mipista.R;
+import com.andela.gkuti.mipista.dal.UserData;
 
 import java.util.ArrayList;
 

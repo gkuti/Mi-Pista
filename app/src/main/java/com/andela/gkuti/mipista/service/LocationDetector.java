@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.service;
 
 import android.Manifest;
 import android.content.Context;
@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -83,7 +82,6 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     public void onLocationChanged(Location location) {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
-        Log.d("log", String.valueOf(longitude) + String.valueOf(latitude));
         detectCountry();
     }
 

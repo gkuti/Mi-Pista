@@ -1,10 +1,12 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.util;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.andela.gkuti.mipista.R;
 
 /**
  * Decorator class

@@ -1,7 +1,9 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.dal;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.andela.gkuti.mipista.util.Constants;
 
 public class UserData {
     private SharedPreferences sharedPreferences;
@@ -12,13 +14,13 @@ public class UserData {
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(String key, int value) {
-        editor.putInt(key, value);
+    public void saveData(int value) {
+        editor.putInt("delay", value);
         editor.commit();
     }
 
-    public int getData(String key) {
-        return sharedPreferences.getInt(key, 5);
+    public int getData() {
+        return sharedPreferences.getInt("delay", 5);
     }
 
     public void saveCurrentDate(String key, String date) {

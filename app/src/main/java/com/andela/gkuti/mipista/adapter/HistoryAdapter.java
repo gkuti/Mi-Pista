@@ -1,21 +1,21 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.adapter;
 
-import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.andela.gkuti.mipista.R;
+import com.andela.gkuti.mipista.model.History;
+
 import java.util.List;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.ViewHolder> {
     private List<History> historyList;
-    private Context context;
 
-    public HistoryAdapter(List<History> historyList, Context context) {
+    public HistoryAdapter(List<History> historyList) {
         this.historyList = historyList;
-        this.context = context;
     }
 
     @Override

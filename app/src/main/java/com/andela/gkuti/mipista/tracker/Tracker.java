@@ -1,10 +1,14 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.tracker;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.util.Log;
+
+import com.andela.gkuti.mipista.dal.Datastore;
+import com.andela.gkuti.mipista.dal.UserData;
+import com.andela.gkuti.mipista.util.Constants;
+import com.andela.gkuti.mipista.util.Date;
 
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +27,7 @@ public class Tracker extends BroadcastReceiver {
     private long stime;
     private long etime;
     private IntentFilter activityFilter;
-    private String location = "";
+    private String location = "unknown";
     private boolean stop;
     private BroadcastReceiver locationUpdate;
 
@@ -83,7 +87,6 @@ public class Tracker extends BroadcastReceiver {
     private void save() {
         if (checkTime()) {
             datastore.saveData(location, startTime, endTime, date, duration);
-            Log.d("save", "saved");
         }
     }
 

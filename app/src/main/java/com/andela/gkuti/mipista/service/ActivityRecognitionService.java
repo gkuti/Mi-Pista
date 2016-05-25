@@ -1,8 +1,9 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.service;
 
 import android.app.IntentService;
 import android.content.Intent;
 
+import com.andela.gkuti.mipista.util.Constants;
 import com.google.android.gms.location.ActivityRecognitionResult;
 import com.google.android.gms.location.DetectedActivity;
 

@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista;
+package com.andela.gkuti.mipista.util;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -8,6 +8,8 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.Settings;
 import android.widget.Toast;
+
+import com.andela.gkuti.mipista.R;
 
 public class Requirement {
     private Context context;
@@ -24,30 +26,21 @@ public class Requirement {
         } else {
             showDialog();
         }
-
     }
 
     private void showDialog() {
-        final AlertDialog.Builder builder =
-                new AlertDialog.Builder(context);
-        String message = "Enable either GPS or any other location"
-                + " service to find current location.  Click OK to go to"
-                + " location services settings.";
-
-        builder.setMessage(message)
-                .setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int id) {
-                                context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-                                d.dismiss();
-                            }
-                        })
-                .setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int id) {
-                                d.cancel();
-                            }
-                        });
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        String message = context.getString(R.string.gps_error_message);
+        builder.setMessage(message).setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface d, int id) {
+                context.startActivity(new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                d.dismiss();
+            }
+        }).setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface d, int id) {
+                d.cancel();
+            }
+        });
         builder.create().show();
     }
 
@@ -56,7 +49,7 @@ public class Requirement {
         NetworkInfo.State mobile = conMan.getNetworkInfo(0).getState();
         NetworkInfo.State wifi = conMan.getNetworkInfo(1).getState();
         if (!(mobile == NetworkInfo.State.CONNECTED || wifi == NetworkInfo.State.CONNECTED)) {
-            Toast.makeText(context, "Data service not available Locations will be stored as unknown", Toast.LENGTH_LONG).show();
+            Toast.makeText(context, R.string.data_error_message, Toast.LENGTH_LONG).show();
         }
     }
 }
