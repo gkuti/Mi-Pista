@@ -55,6 +55,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         locationsList = historyGenerator.getList(stringBuilder.toString());
         locationAdapter.notifyDataSetChanged();
         userData.saveCurrentDate("date", stringBuilder.toString());
+        setTitle(stringBuilder.toString());
     }
 
     private void initializeComponent() {
@@ -75,5 +76,9 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         recyclerView.setAdapter(locationAdapter);
         recyclerView.addItemDecoration(new Decorator(this));
         userData.saveCurrentDate("date", Date.getDate());
+        setTitle(Date.getDate());
+    }
+    private void setTitle(String date){
+        getSupportActionBar().setTitle(date);
     }
 }
