@@ -5,80 +5,118 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.util.Log;
-import android.widget.Toast;
 
-public class Tracker {
+import java.util.concurrent.TimeUnit;
+
+public class Tracker extends BroadcastReceiver {
     private BroadcastReceiver updateListReceiver;
     private Thread thread;
     private String activity;
-    private int seconds;
     private Context context;
     private boolean isRunning = false;
     private Datastore datastore;
     private String startTime;
     private String endTime;
     private String date;
+    private int duration;
+    private UserData userData;
+    private long stime;
+    private long etime;
+    private IntentFilter activityFilter;
+    private String location = "";
+    private boolean stop;
+    private BroadcastReceiver locationUpdate;
 
     public Tracker(Context context) {
         this.context = context;
-        datastore = new Datastore(context, "Mydb", 1);
+        datastore = new Datastore(context);
+        userData = new UserData(context);
+        activity = "STI";
+        updateListReceiver = this;
+        locationUpdate = this;
+        activityFilter = new IntentFilter();
+        activityFilter.addAction(Constants.ACTION.getValue());
+        registerLocationUpdates();
     }
 
-    public void start() {
-        updateListReceiver = new BroadcastReceiver() {
+    public void registerLocationUpdates() {
+        locationUpdate = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                activity = intent.getStringExtra("Activity");
-                Toast.makeText(context, intent.getStringExtra("Activity") + " " + "Confidence : " + intent.getExtras().getString("Confidence"),
-                        Toast.LENGTH_LONG).show();
-                startTimer();
+                location = intent.getStringExtra("Location");
             }
         };
         IntentFilter filter = new IntentFilter();
-        filter.addAction("example");
-        context.registerReceiver(updateListReceiver, filter);
+        filter.addAction("location");
+        context.registerReceiver(locationUpdate, filter);
     }
 
-    private void startTimer() {
+    public void startTracker() {
+        stop = false;
+        start();
+        context.registerReceiver(updateListReceiver, activityFilter);
+    }
+
+    private void start() {
         if (!isRunning) {
             initthread();
-            LocationDetector locationDetector = new LocationDetector(context);
-            locationDetector.connect();
-            date = Date.getDate();
+            initializeTracking();
             thread.start();
         }
-        Toast.makeText(context, String.valueOf(seconds), Toast.LENGTH_LONG).show();
     }
 
     private void initthread() {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                seconds = 0;
-                isRunning = true;
-                startTime = Date.getTime();
-                while (activity.equals("STI")) {
+                while (activity.equals("STI") && !stop) {
                     try {
-                        Thread.sleep(999);
+                        Thread.sleep(1000);
                     } catch (InterruptedException e) {
                     }
-                    seconds++;
                 }
-                endTime = Date.getTime();
-                save(seconds);
-                isRunning = false;
+                endTracking();
             }
         });
     }
 
-    private void save(int seconds) {
-        if (checkTime(seconds)) {
-            datastore.putInformation(datastore, "unknown", startTime, endTime, date);
+    private void save() {
+        if (checkTime()) {
+            datastore.saveData(location, startTime, endTime, date, duration);
             Log.d("save", "saved");
         }
     }
 
-    private boolean checkTime(int seconds) {
-        return seconds >= 10;
+    private boolean checkTime() {
+        duration = (int) TimeUnit.MILLISECONDS.toSeconds(etime - stime);
+        return duration >= 5;
+    }
+
+    private void initializeTracking() {
+        isRunning = true;
+        date = Date.getDate();
+        startTime = Date.getTime();
+        stime = System.currentTimeMillis();
+    }
+
+    private void endTracking() {
+        isRunning = false;
+        etime = System.currentTimeMillis();
+        endTime = Date.getTime();
+        save();
+    }
+
+    public void stopTracker() {
+        try {
+            stop = true;
+            context.unregisterReceiver(updateListReceiver);
+        } catch (Exception e) {
+        }
+    }
+
+    @Override
+    public void onReceive(Context context, Intent intent) {
+        activity = intent.getStringExtra("Activity");
+        start();
     }
 }

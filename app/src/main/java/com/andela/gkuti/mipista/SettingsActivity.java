@@ -21,7 +21,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     private void loadUserSettings() {
         int delay = userData.getData("delay");
-        updateView(String.valueOf(delay)+" mins");
+        updateView(String.valueOf(delay) + " mins");
     }
 
     private void updateView(String text) {
@@ -37,10 +37,11 @@ public class SettingsActivity extends AppCompatActivity {
     private NumberPickCallback numberPickCallback = new NumberPickCallback() {
         @Override
         public void onNumberPick(int value) {
-            userData.saveData("delay",value);
-            updateView(String.valueOf(value)+" mins");
+            userData.saveData("delay", value);
+            updateView(String.valueOf(value) + " mins");
         }
     };
+
     public void launchDialog() {
         NumberPickerDialog numberPickerDialog = new NumberPickerDialog();
         numberPickerDialog.setCallback(numberPickCallback);
