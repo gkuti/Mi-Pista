@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -22,10 +23,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.andela.gkuti.mipista.service.LocationDetector;
 import com.andela.gkuti.mipista.R;
-import com.andela.gkuti.mipista.tracker.Tracker;
+import com.andela.gkuti.mipista.service.LocationDetector;
 import com.andela.gkuti.mipista.service.UserActivity;
+import com.andela.gkuti.mipista.tracker.Tracker;
 import com.andela.gkuti.mipista.util.Requirement;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
@@ -78,6 +79,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         locationDetector = new LocationDetector(activity);
         status = (TextView) view.findViewById(R.id.status);
         userLocation = (TextView) view.findViewById(R.id.user_location);
+        Typeface face = Typeface.createFromAsset(activity.getAssets(), "Secrets.ttf");
+        userLocation.setTypeface(face);
         handler = new Handler();
         fab = (FloatingActionButton) view.findViewById(R.id.tracking_button);
         fab.setOnClickListener(this);
@@ -147,7 +150,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             public void onReceive(Context context, Intent intent) {
                 location = intent.getStringExtra("Location");
                 setLocation();
-                Toast.makeText(context, location, Toast.LENGTH_SHORT).show();
             }
         };
         IntentFilter filter = new IntentFilter();
