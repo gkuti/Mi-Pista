@@ -1,14 +1,15 @@
 package com.andela.gkuti.mipista.dialog;
 
 import android.app.Dialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 
-import com.andela.gkuti.mipista.callback.NumberPickCallback;
 import com.andela.gkuti.mipista.R;
+import com.andela.gkuti.mipista.callback.NumberPickCallback;
 
 public class NumberPickerDialog extends DialogFragment {
     private Dialog dialog;
@@ -24,7 +25,11 @@ public class NumberPickerDialog extends DialogFragment {
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = new Dialog(getContext());
-        dialog.setContentView(R.layout.number_dialog);
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            dialog.setContentView(R.layout.number_dialog_v21);
+        } else {
+            dialog.setContentView(R.layout.number_dialog);
+        }
         initViews();
         return dialog;
     }
