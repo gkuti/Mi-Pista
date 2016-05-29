@@ -85,14 +85,30 @@ public class Tracker extends BroadcastReceiver {
     }
 
     private void save() {
-        if (checkTime()) {
+        if (shouldSave()) {
             datastore.saveData(location, startTime, endTime, date, duration);
         }
     }
 
+    private boolean shouldSave() {
+        if (isUnknown()) {
+            return checkTime();
+        } else if (!location.equals("unknown")) {
+            return checkTime();
+        }
+        return false;
+    }
+
+    private boolean isUnknown() {
+        if (location.equals("unknown") && userData.getData("unknown") == 0) {
+            return true;
+        }
+        return false;
+    }
+
     private boolean checkTime() {
         duration = (int) TimeUnit.MILLISECONDS.toSeconds(etime - stime);
-        return duration >= 5;
+        return duration >= (userData.getData("delay") * 60);
     }
 
     private void initializeTracking() {
