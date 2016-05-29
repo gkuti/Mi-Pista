@@ -51,7 +51,7 @@ public class HistoryActivity extends AppCompatActivity {
 
     private void initializeView() {
         RecyclerView historyView = (RecyclerView) findViewById(R.id.history_list);
-        HistoryAdapter historyAdapter = new HistoryAdapter(historyList, this);
+        HistoryAdapter historyAdapter = new HistoryAdapter(historyList);
         historyView.setLayoutManager(new LinearLayoutManager(this));
         historyView.setAdapter(historyAdapter);
     }
