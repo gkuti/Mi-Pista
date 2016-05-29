@@ -2,6 +2,7 @@ package com.andela.gkuti.mipista.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +60,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             super(itemView);
             location = (TextView) itemView.findViewById(R.id.location);
             hits = (TextView) itemView.findViewById(R.id.hits);
+            Typeface face = Typeface.createFromAsset(context.getAssets(),
+                    "Secrets.ttf");
+            location.setTypeface(face);
         }
     }
 }
