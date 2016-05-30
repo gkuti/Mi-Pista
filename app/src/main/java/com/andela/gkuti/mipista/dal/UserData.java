@@ -14,13 +14,16 @@ public class UserData {
         editor = sharedPreferences.edit();
     }
 
-    public void saveData(int value) {
-        editor.putInt("delay", value);
+    public void saveData(String key, int value) {
+        editor.putInt(key, value);
         editor.commit();
     }
 
-    public int getData() {
-        return sharedPreferences.getInt("delay", 5);
+    public int getData(String key) {
+        if (key.equals("delay")) {
+            return sharedPreferences.getInt(key, 5);
+        }
+        return sharedPreferences.getInt(key, 0);
     }
 
     public void saveCurrentDate(String key, String date) {
@@ -30,5 +33,10 @@ public class UserData {
 
     public String getCurrentDate(String key) {
         return sharedPreferences.getString(key, "");
+    }
+
+    public void deleteData(String key) {
+        editor.remove(key);
+        editor.commit();
     }
 }
