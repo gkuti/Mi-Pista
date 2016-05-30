@@ -61,6 +61,7 @@
         android:layout_toRightOf="@+id/imageView3"
         android:layout_toEndOf="@+id/imageView3"
         android:layout_gravity="center_vertical"
-        android:textColor="@color/colorPrimary" />
+        android:textColor="@color/colorPrimary"
+        android:textSize="25dp" />
     </LinearLayout>
 </RelativeLayout>

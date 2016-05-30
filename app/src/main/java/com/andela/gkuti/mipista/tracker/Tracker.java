@@ -43,7 +43,7 @@ public class Tracker extends BroadcastReceiver {
         registerLocationUpdates();
     }
 
-    public void registerLocationUpdates() {
+    private void registerLocationUpdates() {
         locationUpdate = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

@@ -16,10 +16,7 @@
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
         </activity>
         <activity
             android:name=".activity.SettingsActivity"
@@ -28,8 +25,16 @@
         <activity
             android:name=".activity.LocationActivity"
             android:parentActivityName=".activity.MainActivity" />
-        <activity android:name=".activity.HistoryActivity"
-            android:parentActivityName=".activity.LocationActivity"/>
+        <activity
+            android:name=".activity.HistoryActivity"
+            android:parentActivityName=".activity.LocationActivity" />
+        <activity android:name=".activity.SplashActivity"
+            android:label="Mi Pista">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
 
         <service android:name=".service.ActivityRecognitionService" />
     </application>
