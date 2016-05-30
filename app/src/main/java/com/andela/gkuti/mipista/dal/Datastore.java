@@ -27,7 +27,7 @@ public class Datastore extends SQLiteOpenHelper {
 
     }
 
-    public void saveData(String location, String startTime, String endTime, String date, int duration) {
+    public long saveData(String location, String startTime, String endTime, String date, int duration) {
         SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
         cv.put(LOCATION_COLUMN.getValue(), location);
@@ -35,21 +35,28 @@ public class Datastore extends SQLiteOpenHelper {
         cv.put(END_TIME_COLUMN.getValue(), endTime);
         cv.put(DATE_COLUMN.getValue(), date);
         cv.put(DURATION_COLUMN.getValue(), duration);
-        sqLiteDatabase.insert(TABLE_NAME.getValue(), null, cv);
+        long status = sqLiteDatabase.insert(TABLE_NAME.getValue(), null, cv);
         sqLiteDatabase.close();
+        return status;
     }
 
     public Cursor getHistoryByDate(String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {LOCATION_COLUMN.getValue(), DURATION_COLUMN.getValue()};
         String[] selectionArgs = new String[]{date};
-        return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, "Date =?", selectionArgs, null, null, null);
+        return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, DATE_COLUMN.getValue() + " =?", selectionArgs, null, null, null);
     }
 
     public Cursor getHistoryByLocation(String location, String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {START_TIME_COLUMN.getValue(), END_TIME_COLUMN.getValue(), DURATION_COLUMN.getValue()};
         String[] selectionArgs = new String[]{location, date};
-        return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, "Location =? AND Date =?", selectionArgs, null, null, null);
+        return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, LOCATION_COLUMN.getValue() + " =? AND " + DATE_COLUMN.getValue() + " =?", selectionArgs, null, null, null);
+    }
+
+    public int deleteLocation(String location) {
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        String[] whereArgs = {location};
+        return sqLiteDatabase.delete(TABLE_NAME.getValue(), LOCATION_COLUMN.getValue() + "=?", whereArgs);
     }
 }
