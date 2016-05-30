@@ -18,7 +18,7 @@ public class SplashActivity extends AwesomeSplash {
         configSplash.setAnimCircularRevealDuration(2000);
         configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);
         configSplash.setRevealFlagY(Flags.REVEAL_BOTTOM);
-        configSplash.setLogoSplash(R.drawable.ic_shoes);
+        configSplash.setLogoSplash(R.drawable.ic_shoe);
         configSplash.setAnimLogoSplashDuration(2000);
         configSplash.setAnimLogoSplashTechnique(Techniques.Bounce);
         configSplash.setTitleSplash("Mi Pista");
