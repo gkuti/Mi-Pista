@@ -15,15 +15,27 @@ import com.andela.gkuti.mipista.model.Location;
 
 import java.util.List;
 
+/**
+ * LocationAdapter class
+ */
 public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHolder> {
     private List<Location> locationList;
     private Context context;
 
+    /**
+     * Constructor for LocationAdapter
+     *
+     * @param locationList arraylist of location
+     * @param context      the activity context
+     */
     public LocationAdapter(List<Location> locationList, Context context) {
         this.locationList = locationList;
         this.context = context;
     }
 
+    /**
+     * Called when RecyclerView needs a new ViewHolder of the given type to represent an item.
+     */
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -40,6 +52,9 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         return new ViewHolder(itemView);
     }
 
+    /**
+     * Called by RecyclerView to display the data at the specified position.
+     */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         Location location = locationList.get(position);
@@ -47,15 +62,24 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
         holder.hits.setText(location.getHits());
     }
 
+    /**
+     * Returns the total number of items in the data set hold by the adapter.
+     */
     @Override
     public int getItemCount() {
         return locationList.size();
     }
 
+    /**
+     * ViewHolder class
+     */
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView location;
         private TextView hits;
 
+        /**
+         * Constructor for ViewHolder class
+         */
         public ViewHolder(View itemView) {
             super(itemView);
             location = (TextView) itemView.findViewById(R.id.location);

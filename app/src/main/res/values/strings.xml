@@ -8,6 +8,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="gps_error_message">Enable either GPS or any other location service to find current location.  Click OK to go to location services settings.</string>
+    <string name="gps_error_message">Click OK to Enable location services.</string>
     <string name="data_error_message">Data service not available Locations will be stored as unknown</string>
 </resources>

@@ -20,6 +20,9 @@ import com.andela.gkuti.mipista.dal.UserData;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+/**
+ * LocationActivity class
+ */
 public class LocationActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     private ArrayList<Location> locationsList = new ArrayList<>();
@@ -30,6 +33,9 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
     private HistoryGenerator historyGenerator;
     private UserData userData;
 
+    /**
+     * method called when the activity is about to start
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,12 +43,18 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         initializeComponent();
     }
 
+    /**
+     * method for inflating menu from xml to java object
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.location, menu);
         return true;
     }
 
+    /**
+     * method that handles click event of icons on the action bar
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -54,6 +66,14 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * the method is triggered when you changed the date for the history
+     *
+     * @param view        the DatePicker used in the dialog
+     * @param year        the year that was set
+     * @param monthOfYear the month that was set
+     * @param dayOfMonth  the day that was set
+     */
     @Override
     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -66,6 +86,9 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         setTitle(stringBuilder.toString());
     }
 
+    /**
+     * called to instantiate object
+     */
     private void initializeComponent() {
         userData = new UserData(this);
         historyGenerator = new HistoryGenerator(this);
@@ -73,6 +96,9 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         initializeView();
     }
 
+    /**
+     * the method initializes all views in the xml layout
+     */
     private void initializeView() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
@@ -87,6 +113,11 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
         setTitle(Date.getDate());
     }
 
+    /**
+     * allow you set the title of the actionbar
+     *
+     * @param date the current date which location history is being displayed
+     */
     private void setTitle(String date) {
         getSupportActionBar().setTitle(date);
     }

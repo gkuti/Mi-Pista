@@ -11,13 +11,24 @@ import android.widget.Toast;
 
 import com.andela.gkuti.mipista.R;
 
+/**
+ * Requirement class
+ */
 public class Requirement {
     private Context context;
 
+    /**
+     * Constructor for Requirement class
+     *
+     * @param context
+     */
     public Requirement(Context context) {
         this.context = context;
     }
 
+    /**
+     * the method is called to check if gps and data service is turned on
+     */
     public void check() {
         String provider = Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.LOCATION_PROVIDERS_ALLOWED);
@@ -28,6 +39,9 @@ public class Requirement {
         }
     }
 
+    /**
+     * method is called to show a dialog to goto location service settings
+     */
     private void showDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         String message = context.getString(R.string.gps_error_message);
@@ -44,6 +58,9 @@ public class Requirement {
         builder.create().show();
     }
 
+    /**
+     * method for checking if wifi of mobile dat is enabled
+     */
     private void checkConnectivity() {
         ConnectivityManager conMan = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo.State mobile = conMan.getNetworkInfo(0).getState();

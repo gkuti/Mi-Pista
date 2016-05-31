@@ -1,5 +1,8 @@
 package com.andela.gkuti.mipista.util;
 
+/**
+ * Constants enum class
+ */
 public enum Constants {
     ACTION("com.andela.gkuti.mipista.ACTIVITY_RECOGNITION_DATA"),
     DATABASE_NAME("MiPista"),

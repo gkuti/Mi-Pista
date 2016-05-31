@@ -8,12 +8,16 @@ import com.viksaa.sssplash.lib.activity.AwesomeSplash;
 import com.viksaa.sssplash.lib.cnst.Flags;
 import com.viksaa.sssplash.lib.model.ConfigSplash;
 
+/**
+ * SplashActivity class
+ */
 public class SplashActivity extends AwesomeSplash {
-
+    /**
+     * initilizes the splash screen
+     */
     @Override
     public void initSplash(ConfigSplash configSplash) {
         getSupportActionBar().setTitle("");
-        //Customize Circular Reveal
         configSplash.setBackgroundColor(R.color.colorPrimary);
         configSplash.setAnimCircularRevealDuration(2000);
         configSplash.setRevealFlagX(Flags.REVEAL_RIGHT);
@@ -29,6 +33,9 @@ public class SplashActivity extends AwesomeSplash {
         configSplash.setTitleFont("Secrets.ttf");
     }
 
+    /**
+     * called when the splash screen has finished
+     */
     @Override
     public void animationsFinished() {
         startActivity(new Intent(this, MainActivity.class));

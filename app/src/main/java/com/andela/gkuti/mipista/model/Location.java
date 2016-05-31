@@ -1,5 +1,8 @@
 package com.andela.gkuti.mipista.model;
 
+/**
+ * Location class
+ */
 public class Location {
     private String location;
     private String hits;

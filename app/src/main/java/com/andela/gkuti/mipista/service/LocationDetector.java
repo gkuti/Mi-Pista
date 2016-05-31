@@ -21,6 +21,9 @@ import com.google.android.gms.location.LocationServices;
 import java.io.IOException;
 import java.util.List;
 
+/**
+ * LocationDetector class
+ */
 public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
     private GoogleApiClient googleApiClient;
     private Context context;
@@ -33,11 +36,19 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     private Intent intent;
     private String newLocation = "";
 
+    /**
+     * Constructor for LocationDetector class
+     *
+     * @param context
+     */
     public LocationDetector(Context context) {
         this.context = context;
         intent = new Intent("location");
     }
 
+    /**
+     * called when connection was successful
+     */
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
@@ -49,14 +60,23 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         }
     }
 
+    /**
+     * called when the connection was suspended
+     */
     @Override
     public void onConnectionSuspended(int i) {
     }
 
+    /**
+     * called when the connection failed
+     */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
     }
 
+    /**
+     * method for setting up a connection
+     */
     public void connect() {
         country = " ";
         state = " ";
@@ -69,6 +89,9 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         googleApiClient.connect();
     }
 
+    /**
+     * method for disconnecting the connection
+     */
     public void disconnect() {
         try {
             LocationServices.FusedLocationApi.removeLocationUpdates(
@@ -78,14 +101,22 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
 
     }
 
+    /**
+     * callback for changes in location
+     *
+     * @param location the new location
+     */
     @Override
     public void onLocationChanged(Location location) {
         longitude = location.getLongitude();
         latitude = location.getLatitude();
-        detectCountry();
+        detectLocation();
     }
 
-    private void detectCountry() {
+    /**
+     * method for detecting user location using Geocoder
+     */
+    private void detectLocation() {
         Geocoder geocoder = new Geocoder(context);
         List<Address> addresses;
         try {
@@ -101,6 +132,11 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         }
     }
 
+    /**
+     * method for getting the user location
+     *
+     * @return the return location else returns unknown
+     */
     public String getLocation() {
         if (getAddress()) {
             return street + " " + locality + " " + state + " " + country;
@@ -108,10 +144,20 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         return "unknown";
     }
 
+    /**
+     * method for checking if the user address has been detected
+     *
+     * @return true if the address has beeen detected else false
+     */
     private boolean getAddress() {
         return (!country.equals(" ") || !state.equals(" ") || !locality.equals(" ") || !street.equals(" "));
     }
 
+    /**
+     * assigns data to location parameters
+     *
+     * @param addresses list of address
+     */
     private void decodeAddress(List<Address> addresses) {
         Address address = addresses.get(0);
         country = address.getCountryName();
@@ -120,6 +166,9 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         street = address.getFeatureName();
     }
 
+    /**
+     * method for creating a new intent if a new location was detected
+     */
     private void updateLocation() {
         if (!getLocation().equals(newLocation)) {
             newLocation = getLocation();

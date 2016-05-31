@@ -11,6 +11,9 @@ import android.widget.NumberPicker;
 import com.andela.gkuti.mipista.R;
 import com.andela.gkuti.mipista.callback.NumberPickCallback;
 
+/**
+ * NumberPickerDialog class
+ */
 public class NumberPickerDialog extends DialogFragment {
     private Dialog dialog;
     private Button cancelButton;
@@ -18,10 +21,18 @@ public class NumberPickerDialog extends DialogFragment {
     private NumberPickCallback callback;
     private NumberPicker numberPicker;
 
+    /**
+     * method for setting the callback for the class
+     *
+     * @param callback
+     */
     public void setCallback(NumberPickCallback callback) {
         this.callback = callback;
     }
 
+    /**
+     * method called when the dialog is about to start
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         dialog = new Dialog(getContext());
@@ -34,6 +45,9 @@ public class NumberPickerDialog extends DialogFragment {
         return dialog;
     }
 
+    /**
+     * method for initializing views
+     */
     private void initViews() {
         cancelButton = (Button) dialog.findViewById(R.id.cancel);
         okButton = (Button) dialog.findViewById(R.id.okay);
@@ -43,12 +57,18 @@ public class NumberPickerDialog extends DialogFragment {
         assignClickHandlers();
     }
 
+    /**
+     * method for setting listeners to buttons
+     */
     private void assignClickHandlers() {
         cancelButton.setOnClickListener(cancelListener);
         okButton.setOnClickListener(addListener);
     }
 
     private View.OnClickListener cancelListener = new View.OnClickListener() {
+        /**
+         * method called when the cancel button is clicked
+         */
         @Override
         public void onClick(View v) {
             dialog.dismiss();
@@ -56,6 +76,9 @@ public class NumberPickerDialog extends DialogFragment {
     };
 
     private View.OnClickListener addListener = new View.OnClickListener() {
+        /**
+         * method called when the ok button is clicked
+         */
         @Override
         public void onClick(View v) {
             int value = numberPicker.getValue();

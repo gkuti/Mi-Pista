@@ -31,6 +31,9 @@ import com.andela.gkuti.mipista.util.Requirement;
 import com.daimajia.androidanimations.library.Techniques;
 import com.daimajia.androidanimations.library.YoYo;
 
+/**
+ * MainFragment class
+ */
 public class MainFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
     private Tracker tracker;
@@ -46,11 +49,17 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private LocationDetector locationDetector;
     private BroadcastReceiver locationUpdate;
 
+    /**
+     * method called when the view is about to be created
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_main, container, false);
     }
 
+    /**
+     * method called after the view has been created
+     */
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -61,6 +70,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         registerLocationUpdates();
     }
 
+    /**
+     * handler for the tracker button
+     */
     @Override
     public void onClick(View view) {
         if (!isTracking) {
@@ -72,6 +84,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * mehtod for initializing class components
+     */
     private void initializeComponent() {
         Requirement requirement = new Requirement(activity);
         tracker = new Tracker(activity);
@@ -88,6 +103,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         locationDetector.connect();
     }
 
+    /**
+     * the thread for tracking status animation
+     */
     public void initthread() {
         thread = new Thread(new Runnable() {
             @Override
@@ -108,6 +126,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         });
     }
 
+    /**
+     * Callback for the result from requesting permissions.
+     */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         switch (requestCode) {
@@ -119,10 +140,16 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    /**
+     * method for animating the tracker status
+     */
     public void animate() {
         YoYo.with(Techniques.Pulse).duration(2000).playOn(view.findViewById(R.id.pulse));
     }
 
+    /**
+     * method for starting the tracker
+     */
     public void startTracking() {
         tracker.startTracker();
         userActivity.connect();
@@ -132,6 +159,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         status.setText("TRACKING");
     }
 
+    /**
+     * method called for stopping the tracker
+     */
     public void stopTracking() {
         tracker.stopTracker();
         userActivity.disconnect();
@@ -139,6 +169,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         status.setText("NOT TRACKING");
     }
 
+    /**
+     * method for displaying location
+     */
     public void setLocation() {
         userLocation.setText(location);
         YoYo.with(Techniques.BounceIn).duration(2000).playOn(view.findViewById(R.id.user_location));
@@ -146,6 +179,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
 
     public void registerLocationUpdates() {
         locationUpdate = new BroadcastReceiver() {
+            /**
+             * method called when an intent has been received from a broadcast
+             */
             @Override
             public void onReceive(Context context, Intent intent) {
                 location = intent.getStringExtra("Location");
@@ -157,6 +193,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         getActivity().registerReceiver(locationUpdate, filter);
     }
 
+    /**
+     * method called when the fragment is about to be destroyed
+     */
     @Override
     public void onDestroy() {
         super.onDestroy();
@@ -164,6 +203,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         getContext().unregisterReceiver(locationUpdate);
     }
 
+    /**
+     * method for checking if location permission is granted
+     */
     public void checkPermission() {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {

@@ -8,20 +8,31 @@ import android.view.MenuItem;
 
 import com.andela.gkuti.mipista.R;
 
+/**
+ * MainActivity class
+ */
 public class MainActivity extends AppCompatActivity {
-
+    /**
+     * method called when the activity is about to start
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * method for inflating menu from xml to java object
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * method that handles click event of icons on the action bar
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

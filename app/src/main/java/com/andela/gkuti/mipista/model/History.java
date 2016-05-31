@@ -1,5 +1,8 @@
 package com.andela.gkuti.mipista.model;
 
+/**
+ * History class
+ */
 public class History {
     private String startTime;
     private String endTime;

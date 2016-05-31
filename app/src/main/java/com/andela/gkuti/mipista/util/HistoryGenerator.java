@@ -10,6 +10,9 @@ import com.andela.gkuti.mipista.model.Location;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * HistoryGenerator class
+ */
 public class HistoryGenerator {
     private ArrayList<Location> locationsList;
     private ArrayList<String> locationList;
@@ -17,16 +20,32 @@ public class HistoryGenerator {
     private int totalDuration;
     private Datastore datastore;
 
+    /**
+     * Constructor for HistoryGenerator class
+     *
+     * @param context
+     */
     public HistoryGenerator(Context context) {
         locationsList = new ArrayList<>();
         datastore = new Datastore(context);
     }
 
+    /**
+     * method for getting locationlist
+     *
+     * @param date the date to fetch for
+     * @return arraylist of locations
+     */
     public ArrayList<Location> getList(String date) {
         createData(date);
         return locationsList;
     }
 
+    /**
+     * method for fetching the data from database with the date
+     *
+     * @param date the specified date
+     */
     private void createData(String date) {
         locationsList.clear();
         locationList = new ArrayList<>();
@@ -40,6 +59,9 @@ public class HistoryGenerator {
         generateList();
     }
 
+    /**
+     * method for generating a list of Location
+     */
     private void generateList() {
         for (int i = 0; i < locationList.size(); i++) {
             String loc = locationList.get(i);
@@ -49,6 +71,11 @@ public class HistoryGenerator {
         }
     }
 
+    /**
+     * method for binding data from the database cursor
+     *
+     * @param cursor the specified database cursor
+     */
     private void bindData(Cursor cursor) {
         String Location = cursor.getString(cursor.getColumnIndex(Constants.LOCATION_COLUMN.getValue()));
         int duration = cursor.getInt(cursor.getColumnIndex(Constants.DURATION_COLUMN.getValue()));
