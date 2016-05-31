@@ -30,7 +30,8 @@
             android:text="Moleye street yaba,Lagos Nigeria"
             android:id="@+id/location"
             android:textColor="@color/Ash"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:textSize="25dp" />
 
         <TextView
             android:layout_width="wrap_content"

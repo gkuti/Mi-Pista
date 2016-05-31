@@ -14,19 +14,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:launchMode="singleInstance"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name">
+
+        </activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:label="Settings"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.LocationActivity"
+            android:parentActivityName=".activity.MainActivity" />
+        <activity
+            android:name=".activity.HistoryActivity"
+            android:parentActivityName=".activity.LocationActivity" />
+        <activity android:name=".activity.SplashActivity"
+            android:label="Mi Pista">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".SettingsActivity"
-            android:label="Settings" />
-        <activity android:name=".LocationActivity" />
-        <activity android:name=".HistoryActivity" />
-        <service android:name=".ActivityRecognitionService"/>
+
+        <service android:name=".service.ActivityRecognitionService" />
     </application>
 
 </manifest>
