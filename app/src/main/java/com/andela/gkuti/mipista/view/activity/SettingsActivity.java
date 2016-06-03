@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.activity;
+package com.andela.gkuti.mipista.view.activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import android.widget.CompoundButton;
 import android.widget.Switch;
 
 import com.andela.gkuti.mipista.callback.NumberPickCallback;
-import com.andela.gkuti.mipista.dialog.NumberPickerDialog;
+import com.andela.gkuti.mipista.view.dialog.NumberPickerDialog;
 import com.andela.gkuti.mipista.R;
 import com.andela.gkuti.mipista.dal.UserData;
 

@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.fragment;
+package com.andela.gkuti.mipista.view.fragment;
 
 
 import android.Manifest;
@@ -85,7 +85,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * mehtod for initializing class components
+     * method for initializing class components
      */
     private void initializeComponent() {
         Requirement requirement = new Requirement(activity);

@@ -2,7 +2,7 @@ package com.andela.gkuti.mipista;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.andela.gkuti.mipista.activity.MainActivity;
+import com.andela.gkuti.mipista.view.activity.MainActivity;
 import com.andela.gkuti.mipista.util.Date;
 
 import static android.support.test.espresso.Espresso.onView;
@@ -32,13 +32,13 @@ public class TrackingTest extends ActivityInstrumentationTestCase2<MainActivity>
         onView(withContentDescription("Navigate up")).perform(click());
         onView(withId(R.id.tracking_button)).perform(click());
         onView(withText("TRACKING")).check(matches(isDisplayed()));
-        Thread.sleep(5000);
+        Thread.sleep(60000);
         onView(withId(R.id.tracking_button)).perform(click());
         Thread.sleep(3000);
         onView(withId(R.id.action_history)).perform(click());
         Thread.sleep(2000);
         onView(withText(Date.getDate())).check(matches(isDisplayed()));
-        onView(withText("Onabola St Somolu Lagos Nigeria")).perform(click());
+        onView(withText("Moleye St Lagos Mainland Lagos Nigeria")).perform(click());
         Thread.sleep(3000);
     }
 }

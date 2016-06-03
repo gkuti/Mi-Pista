@@ -15,21 +15,21 @@
         android:theme="@style/AppTheme">
         <activity
             android:launchMode="singleInstance"
-            android:name=".activity.MainActivity"
+            android:name=".view.activity.MainActivity"
             android:label="@string/app_name">
 
         </activity>
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".view.activity.SettingsActivity"
             android:label="Settings"
-            android:parentActivityName=".activity.MainActivity" />
+            android:parentActivityName=".view.activity.MainActivity" />
         <activity
-            android:name=".activity.LocationActivity"
-            android:parentActivityName=".activity.MainActivity" />
+            android:name=".view.activity.LocationActivity"
+            android:parentActivityName=".view.activity.MainActivity" />
         <activity
-            android:name=".activity.HistoryActivity"
-            android:parentActivityName=".activity.LocationActivity" />
-        <activity android:name=".activity.SplashActivity"
+            android:name=".view.activity.HistoryActivity"
+            android:parentActivityName=".view.activity.LocationActivity" />
+        <activity android:name=".view.activity.SplashActivity"
             android:label="Mi Pista">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

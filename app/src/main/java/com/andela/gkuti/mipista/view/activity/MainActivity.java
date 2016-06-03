@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.activity;
+package com.andela.gkuti.mipista.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
