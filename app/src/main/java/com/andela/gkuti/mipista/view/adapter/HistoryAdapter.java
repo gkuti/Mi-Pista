@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.adapter;
+package com.andela.gkuti.mipista.view.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

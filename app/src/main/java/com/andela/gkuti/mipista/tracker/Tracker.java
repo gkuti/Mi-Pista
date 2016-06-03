@@ -80,7 +80,7 @@ public class Tracker extends BroadcastReceiver {
      */
     private void start() {
         if (!isRunning) {
-            initthread();
+            initThread();
             initializeTracking();
             thread.start();
         }
@@ -89,7 +89,7 @@ public class Tracker extends BroadcastReceiver {
     /**
      * method that initializes the thread
      */
-    private void initthread() {
+    private void initThread() {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {

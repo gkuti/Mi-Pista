@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.dialog;
+package com.andela.gkuti.mipista.view.dialog;
 
 import android.app.Dialog;
 import android.os.Build;

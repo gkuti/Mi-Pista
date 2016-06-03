@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.activity;
+package com.andela.gkuti.mipista.view.activity;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import com.andela.gkuti.mipista.util.Date;
 import com.andela.gkuti.mipista.util.Decorator;
 import com.andela.gkuti.mipista.util.HistoryGenerator;
 import com.andela.gkuti.mipista.model.Location;
-import com.andela.gkuti.mipista.adapter.LocationAdapter;
+import com.andela.gkuti.mipista.view.adapter.LocationAdapter;
 import com.andela.gkuti.mipista.R;
 import com.andela.gkuti.mipista.dal.UserData;
 

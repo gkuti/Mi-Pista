@@ -2,7 +2,7 @@ package com.andela.gkuti.mipista;
 
 import android.test.ActivityInstrumentationTestCase2;
 
-import com.andela.gkuti.mipista.activity.SettingsActivity;
+import com.andela.gkuti.mipista.view.activity.SettingsActivity;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;

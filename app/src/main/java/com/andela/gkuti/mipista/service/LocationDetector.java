@@ -39,7 +39,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     /**
      * Constructor for LocationDetector class
      *
-     * @param context
+     * @param context activity context
      */
     public LocationDetector(Context context) {
         this.context = context;

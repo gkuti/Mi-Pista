@@ -1,4 +1,4 @@
-package com.andela.gkuti.mipista.adapter;
+package com.andela.gkuti.mipista.view.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.andela.gkuti.mipista.R;
-import com.andela.gkuti.mipista.activity.HistoryActivity;
+import com.andela.gkuti.mipista.view.activity.HistoryActivity;
 import com.andela.gkuti.mipista.model.Location;
 
 import java.util.List;
@@ -84,8 +84,7 @@ public class LocationAdapter extends RecyclerView.Adapter<LocationAdapter.ViewHo
             super(itemView);
             location = (TextView) itemView.findViewById(R.id.location);
             hits = (TextView) itemView.findViewById(R.id.hits);
-            Typeface face = Typeface.createFromAsset(context.getAssets(),
-                    "Secrets.ttf");
+            Typeface face = Typeface.createFromAsset(context.getAssets(), "Secrets.ttf");
             location.setTypeface(face);
         }
     }

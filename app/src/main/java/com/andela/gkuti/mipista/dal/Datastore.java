@@ -68,7 +68,7 @@ public class Datastore extends SQLiteOpenHelper {
     public Cursor getHistoryByDate(String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {LOCATION_COLUMN.getValue(), DURATION_COLUMN.getValue()};
-        String[] selectionArgs = new String[]{date};
+        String[] selectionArgs = {date};
         return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, DATE_COLUMN.getValue() + " =?", selectionArgs, null, null, null);
     }
 
@@ -82,7 +82,7 @@ public class Datastore extends SQLiteOpenHelper {
     public Cursor getHistoryByLocation(String location, String date) {
         SQLiteDatabase sqLiteDatabase = this.getReadableDatabase();
         String[] columns = {START_TIME_COLUMN.getValue(), END_TIME_COLUMN.getValue(), DURATION_COLUMN.getValue()};
-        String[] selectionArgs = new String[]{location, date};
+        String[] selectionArgs = {location, date};
         return sqLiteDatabase.query(TABLE_NAME.getValue(), columns, LOCATION_COLUMN.getValue() + " =? AND " + DATE_COLUMN.getValue() + " =?", selectionArgs, null, null, null);
     }
 
