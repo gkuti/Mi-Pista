@@ -12,7 +12,6 @@ import com.andela.gkuti.mipista.R;
  * Decorator class
  */
 public class Decorator extends RecyclerView.ItemDecoration {
-
     private Context context;
 
     /**
@@ -27,15 +26,11 @@ public class Decorator extends RecyclerView.ItemDecoration {
         Paint paint = new Paint();
         paint.setColor(context.getResources().getColor(R.color.colorPrimary));
         paint.setStrokeWidth(4.0f);
-
         float startX = 20.0f;
-
         for (int i = 0, count = parent.getChildCount(); i < count; ++i) {
             View child = parent.getChildAt(i);
-
             float startY = child.getBottom();
             float stopX = child.getRight() - 20.0f;
-
             c.drawLine(startX, startY, stopX, startY, paint);
         }
 
