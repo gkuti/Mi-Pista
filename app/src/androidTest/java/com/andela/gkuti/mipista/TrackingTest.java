@@ -38,7 +38,7 @@ public class TrackingTest extends ActivityInstrumentationTestCase2<MainActivity>
         onView(withId(R.id.action_history)).perform(click());
         Thread.sleep(2000);
         onView(withText(Date.getDate())).check(matches(isDisplayed()));
-        //onView(withText("Moleye St Lagos Mainland Lagos Nigeria")).perform(click());
+        onView(withText("01:")).perform(click());
         Thread.sleep(3000);
     }
 }
