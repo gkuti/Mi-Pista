@@ -155,7 +155,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         userActivity.connect();
         isTracking = true;
         initthread();
-        thread.start();
+        //thread.start();
         status.setText("TRACKING");
     }
 
