@@ -106,7 +106,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     /**
      * the thread for tracking status animation
      */
-    public void initthread() {
+    private void initthread() {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -143,7 +143,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     /**
      * method for animating the tracker status
      */
-    public void animate() {
+    private void animate() {
         YoYo.with(Techniques.Pulse).duration(2000).playOn(view.findViewById(R.id.pulse));
     }
 
@@ -162,7 +162,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     /**
      * method called for stopping the tracker
      */
-    public void stopTracking() {
+    private void stopTracking() {
         tracker.stopTracker();
         userActivity.disconnect();
         isTracking = false;
@@ -172,12 +172,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     /**
      * method for displaying location
      */
-    public void setLocation() {
+    private void setLocation() {
         userLocation.setText(location);
         YoYo.with(Techniques.BounceIn).duration(2000).playOn(view.findViewById(R.id.user_location));
     }
 
-    public void registerLocationUpdates() {
+    private void registerLocationUpdates() {
         locationUpdate = new BroadcastReceiver() {
             /**
              * method called when an intent has been received from a broadcast
@@ -206,7 +206,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     /**
      * method for checking if location permission is granted
      */
-    public void checkPermission() {
+    private void checkPermission() {
         if (ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);

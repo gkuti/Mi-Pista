@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     /**
      * the method for launching a number picker dialog
      */
-    public void launchDialog() {
+    private void launchDialog() {
         NumberPickerDialog numberPickerDialog = new NumberPickerDialog();
         numberPickerDialog.setCallback(numberPickCallback);
         numberPickerDialog.show(getSupportFragmentManager(), "");
