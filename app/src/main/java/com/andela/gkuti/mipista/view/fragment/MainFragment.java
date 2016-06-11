@@ -177,6 +177,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         YoYo.with(Techniques.BounceIn).duration(2000).playOn(view.findViewById(R.id.user_location));
     }
 
+    /**
+     * method for registering intent broadcast
+     */
     private void registerLocationUpdates() {
         locationUpdate = new BroadcastReceiver() {
             /**

@@ -60,7 +60,7 @@ public class Datastore extends SQLiteOpenHelper {
     }
 
     /**
-     * the method return data fetched by the date provided
+     * the method returns data fetched using the date provided
      *
      * @param date the specified date
      * @return cursor object of the data
@@ -73,7 +73,7 @@ public class Datastore extends SQLiteOpenHelper {
     }
 
     /**
-     * the method return data fetched by the location and date provided
+     * the method return data fetched using the location and date provided
      *
      * @param location the specified location
      * @param date     the specified date

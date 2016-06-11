@@ -147,7 +147,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     /**
      * method for checking if the user address has been detected
      *
-     * @return true if the address has beeen detected else false
+     * @return true if the address has been detected else false
      */
     private boolean getAddress() {
         return (!country.equals(" ") || !state.equals(" ") || !locality.equals(" ") || !street.equals(" "));

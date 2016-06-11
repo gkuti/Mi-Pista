@@ -114,7 +114,7 @@ public class Tracker extends BroadcastReceiver {
     }
 
     /**
-     * method for checking a tracking profile should be saved
+     * method for checking if a tracking profile should be saved
      *
      * @return true if the profile should be saved else false
      */
@@ -130,7 +130,7 @@ public class Tracker extends BroadcastReceiver {
     /**
      * method to check if the saving of unknown location is allowed
      *
-     * @return true if it is allowed else flase
+     * @return true if it is allowed else false
      */
     private boolean isUnknown() {
         if (location.equals("unknown") && userData.getData("unknown") == 0) {

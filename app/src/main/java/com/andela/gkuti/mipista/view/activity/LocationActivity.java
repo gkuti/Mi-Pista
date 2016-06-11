@@ -87,7 +87,7 @@ public class LocationActivity extends AppCompatActivity implements DatePickerDia
     }
 
     /**
-     * called to instantiate object
+     * called to instantiate objects
      */
     private void initializeComponent() {
         userData = new UserData(this);
