@@ -101,8 +101,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
      * method for disconnecting the connection
      */
     public void disconnect() {
-        LocationServices.FusedLocationApi.removeLocationUpdates(
-                googleApiClient, this);
+        googleApiClient.disconnect();
     }
 
     /**
