@@ -43,9 +43,9 @@ public class ActivityRecognitionService extends IntentService {
         for (DetectedActivity activity : probableActivities) {
             getStatus(activity.getType(), activity);
         }
-        Intent i = new Intent(Constants.ACTION.getValue());
-        i.putExtra("Activity", activity);
-        sendBroadcast(i);
+        Intent intent = new Intent(Constants.ACTION.getValue());
+        intent.putExtra("Activity", activity);
+        sendBroadcast(intent);
     }
 
     /**
@@ -57,10 +57,9 @@ public class ActivityRecognitionService extends IntentService {
     private void getStatus(int type, DetectedActivity activity) {
         if ((type == DetectedActivity.UNKNOWN || type == DetectedActivity.STILL || type == DetectedActivity.TILTING) && (confidence < activity.getConfidence())) {
             this.activity = "STI";
-            confidence = activity.getConfidence();
         } else if (confidence < activity.getConfidence()) {
             this.activity = "MOV";
-            confidence = activity.getConfidence();
         }
+        confidence = activity.getConfidence();
     }
 }

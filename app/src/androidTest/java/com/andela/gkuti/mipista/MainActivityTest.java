@@ -26,12 +26,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
         onView(withText("Mi Pista")).check(matches(isDisplayed()));
         onView(withText("NOT TRACKING")).check(matches(isDisplayed()));
     }
-//Test cannot be ran on a cloud emulator
-//    public void testLocationDetector() throws Exception {
-//        getActivity();
-//        Thread.sleep(5000);
-//        onView(withText("Moleye St Lagos Mainland Lagos Nigeria")).check(matches(isDisplayed()));
-//    }
 
     public void testTrackerButton() throws Exception {
         getActivity();

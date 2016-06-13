@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -38,8 +37,6 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     private Activity activity;
     private Tracker tracker;
     private TextView status;
-    private Handler handler;
-    private Thread thread;
     private boolean isTracking;
     private FloatingActionButton fab;
     private View view;
@@ -96,34 +93,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         userLocation = (TextView) view.findViewById(R.id.user_location);
         Typeface face = Typeface.createFromAsset(activity.getAssets(), "Secrets.ttf");
         userLocation.setTypeface(face);
-        handler = new Handler();
         fab = (FloatingActionButton) view.findViewById(R.id.tracking_button);
         fab.setOnClickListener(this);
         requirement.check();
         locationDetector.connect();
-    }
-
-    /**
-     * the thread for tracking status animation
-     */
-    private void initthread() {
-        thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (isTracking) {
-                    handler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            animate();
-                        }
-                    });
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                    }
-                }
-            }
-        });
     }
 
     /**
@@ -141,21 +114,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     }
 
     /**
-     * method for animating the tracker status
-     */
-    private void animate() {
-        YoYo.with(Techniques.Pulse).duration(2000).playOn(view.findViewById(R.id.pulse));
-    }
-
-    /**
      * method for starting the tracker
      */
     public void startTracking() {
         tracker.startTracker();
         userActivity.connect();
         isTracking = true;
-        initthread();
-        //thread.start();
         status.setText("TRACKING");
     }
 

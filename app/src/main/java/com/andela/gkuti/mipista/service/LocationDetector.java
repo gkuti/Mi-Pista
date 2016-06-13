@@ -34,7 +34,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
     private double longitude;
     private double latitude;
     private Intent intent;
-    private String newLocation = "";
+    private String newLocation = "unknown";
 
     /**
      * Constructor for LocationDetector class
@@ -65,6 +65,10 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
      */
     @Override
     public void onConnectionSuspended(int i) {
+        /* This method is called only when you gps is on but location could not be detected due to data service.
+           But since the Requirement class checks for data services before tracking is started therefore
+           this callback is not reached.
+         */
     }
 
     /**
@@ -72,6 +76,10 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        /* This method is called only when you try to connect to client without having gps on.
+           But since the Requirement class prompts the user to switch gps on before tracking is started,
+           this callback will not be reached.
+         */
     }
 
     /**
@@ -93,12 +101,8 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
      * method for disconnecting the connection
      */
     public void disconnect() {
-        try {
-            LocationServices.FusedLocationApi.removeLocationUpdates(
-                    googleApiClient, this);
-        } catch (Exception e) {
-        }
-
+        LocationServices.FusedLocationApi.removeLocationUpdates(
+                googleApiClient, this);
     }
 
     /**
@@ -141,7 +145,7 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
         if (getAddress()) {
             return street + " " + locality + " " + state + " " + country;
         }
-        return "unknown";
+        return null;
     }
 
     /**
@@ -170,7 +174,8 @@ public class LocationDetector implements GoogleApiClient.ConnectionCallbacks, Go
      * method for creating a new intent if a new location was detected
      */
     private void updateLocation() {
-        if (!getLocation().equals(newLocation)) {
+        String location = getLocation();
+        if (location != null && !location.equals(newLocation)) {
             newLocation = getLocation();
             intent.putExtra("Location", getLocation());
             context.sendBroadcast(intent);
