@@ -47,7 +47,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionSuspended(int i) {
-        connect();
+        snackBar.show("Connection to service stopped try again");
     }
 
     /**
