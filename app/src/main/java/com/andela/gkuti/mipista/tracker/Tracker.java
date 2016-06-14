@@ -97,6 +97,7 @@ public class Tracker extends BroadcastReceiver {
                     try {
                         Thread.sleep(1000);
                     } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
                     }
                 }
                 endTracking();

@@ -1,5 +1,6 @@
 package com.andela.gkuti.mipista.service;
 
+import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.andela.gkuti.mipista.util.SnackBar;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
@@ -17,14 +19,16 @@ import com.google.android.gms.location.ActivityRecognition;
 public class UserActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;
     private Context context;
+    private SnackBar snackBar;
 
     /**
      * Constructor for UserActivity class
      *
      * @param context
      */
-    public UserActivity(Context context) {
+    public UserActivity(Activity context) {
         this.context = context;
+        snackBar = new SnackBar(context);
     }
 
     /**
@@ -43,7 +47,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionSuspended(int i) {
-
+        connect();
     }
 
     /**
@@ -51,7 +55,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        snackBar.show("Connection to service failed try again");
     }
 
     /**
