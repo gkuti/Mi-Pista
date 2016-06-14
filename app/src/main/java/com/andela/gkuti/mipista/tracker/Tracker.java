@@ -174,11 +174,8 @@ public class Tracker extends BroadcastReceiver {
      * method for stopping the tracker
      */
     public void stopTracker() {
-        try {
             stop = true;
             context.unregisterReceiver(updateListReceiver);
-        } catch (Exception e) {
-        }
     }
 
     /**
