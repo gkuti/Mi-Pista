@@ -10,4 +10,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="gps_error_message">Click OK to Enable location services.</string>
     <string name="data_error_message">Data service not available Locations will be stored as unknown</string>
+    <string name="connection_suspended">Connection to service stopped try again</string>
+    <string name="connection_failed">Connection to service failed try again</string>
 </resources>

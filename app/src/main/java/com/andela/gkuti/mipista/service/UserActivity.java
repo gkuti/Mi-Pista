@@ -47,7 +47,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionSuspended(int i) {
-        snackBar.show("Connection to service stopped try again");
+        //snackBar.show(context.getString(R.string.connection_suspended));
     }
 
     /**
@@ -55,7 +55,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        snackBar.show("Connection to service failed try again");
+        //snackBar.show(context.getString(R.string.connection_failed));
     }
 
     /**

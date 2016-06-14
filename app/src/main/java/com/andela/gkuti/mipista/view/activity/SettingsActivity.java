@@ -16,8 +16,8 @@ import com.andela.gkuti.mipista.dal.UserData;
  * SettingsActivity class
  */
 public class SettingsActivity extends AppCompatActivity implements CompoundButton.OnCheckedChangeListener {
-    Button button;
-    UserData userData;
+    private Button button;
+    private UserData userData;
     private Switch updateSwitch;
 
     /**
