@@ -7,8 +7,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
-import com.andela.gkuti.mipista.util.SnackBar;
+import com.andela.gkuti.mipista.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.ActivityRecognition;
@@ -19,7 +20,6 @@ import com.google.android.gms.location.ActivityRecognition;
 public class UserActivity implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
     private GoogleApiClient googleApiClient;
     private Context context;
-    private SnackBar snackBar;
 
     /**
      * Constructor for UserActivity class
@@ -28,7 +28,6 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     public UserActivity(Activity context) {
         this.context = context;
-        snackBar = new SnackBar(context);
     }
 
     /**
@@ -47,7 +46,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionSuspended(int i) {
-        //snackBar.show(context.getString(R.string.connection_suspended));
+        Toast.makeText(context,context.getString(R.string.connection_suspended),Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -55,7 +54,7 @@ public class UserActivity implements GoogleApiClient.ConnectionCallbacks, Google
      */
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        //snackBar.show(context.getString(R.string.connection_failed));
+        Toast.makeText(context,context.getString(R.string.connection_failed),Toast.LENGTH_SHORT).show();
     }
 
     /**
