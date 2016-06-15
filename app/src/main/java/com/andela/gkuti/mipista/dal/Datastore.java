@@ -33,7 +33,7 @@ public class Datastore extends SQLiteOpenHelper {
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-
+        // This method is empty since no database upgrade is being done for now in the project
     }
 
     /**
